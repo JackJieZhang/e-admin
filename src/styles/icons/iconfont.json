@@ -1,0 +1,23 @@
+{
+  "id": "3800318",
+  "name": "myicon",
+  "font_family": "iconfont",
+  "css_prefix_text": "el-icon-ali-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "609557",
+      "name": "调整大小",
+      "font_class": "diaozhengdaxiaoresize5",
+      "unicode": "e720",
+      "unicode_decimal": 59168
+    },
+    {
+      "icon_id": "22095753",
+      "name": "language",
+      "font_class": "language",
+      "unicode": "e9cf",
+      "unicode_decimal": 59855
+    }
+  ]
+}
