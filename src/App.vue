@@ -15,5 +15,4 @@ import zhCN from 'element-plus/es/locale/lang/zh-cn'
 import enUS from 'element-plus/es/locale/lang/en'
 const lanStore = i18nStore()
 const sizeStore = sizeStores()
-console.log(sizeStore.size)
 </script>
