@@ -5,6 +5,8 @@ export default {
     large: 'large',
     default: 'default',
     small: 'small',
-    card3: 'New Shoppings',
+    userInfo: 'User Info',
+    logout: 'Login out',
+    login: 'Login',
   },
 }

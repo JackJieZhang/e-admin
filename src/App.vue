@@ -9,8 +9,7 @@
 
 <script setup lang="ts">
 import { ElConfigProvider } from 'element-plus'
-import { i18nStore } from '@/stores/i18n'
-import { sizeStore as sizeStores } from '@/stores/sizeStore'
+import { i18nStore, sizeStore as sizeStores } from '@/stores'
 import zhCN from 'element-plus/es/locale/lang/zh-cn'
 import enUS from 'element-plus/es/locale/lang/en'
 const lanStore = i18nStore()

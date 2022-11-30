@@ -15,20 +15,37 @@
           </el-menu>
         </div>
       </el-space>
-      <div style="padding: 10px; float: right">
-        <el-avatar />
+      <div style="padding: 10px; float: right; cursor: pointer">
+        <el-dropdown
+          :hide-on-click="false"
+          trigger="click"
+          ref="userOptDropdown"
+          @command="userOptCommand"
+        >
+          <el-avatar />
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item command="toUserInfo">{{
+                $t('home.userInfo')
+              }}</el-dropdown-item>
+              <el-dropdown-item command="toLogout">{{
+                $t('home.logout')
+              }}</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </div>
-      <div style="padding-top: 20px; float: right">
+      <div class="setting_bar">
         <el-button
           style="font-size: 20px"
           link
-          :icon="FullScreen"
+          :icon="fullscreen ? Crop : FullScreen"
           @click="fullScreenHanlder()"
         ></el-button>
         <el-button
           style="font-size: 20px"
           link
-          :icon="isDark ? Sunny : Moon"
+          :icon="isDark ? Moon : Sunny"
           @click="toggleDark()"
         ></el-button>
         <el-dropdown
@@ -159,7 +176,8 @@ import { ref, watch, toRef } from 'vue'
 import { i18nStore, sizeStore } from '@/stores'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import { Sunny, Moon, FullScreen } from '@element-plus/icons-vue'
+import { Sunny, Moon, FullScreen, Crop } from '@element-plus/icons-vue'
+import { removeUserToken } from '@/utils/LocalStore'
 
 const { locale } = useI18n()
 const lanStore = i18nStore()
@@ -181,6 +199,21 @@ const size = sizeStore()
 const changeSize = function (command: string) {
   size.setSize(command)
   sizeDropdown.value.handleClose()
+}
+
+const userOptDropdown = ref()
+const userOptCommand = function (command: string) {
+  switch (command) {
+    case 'toLogout':
+      removeUserToken()
+      router.push({ path: '/login' })
+      break
+    case 'toUserInfo':
+      router.push({ path: '/user-info' })
+      break
+  }
+
+  userOptDropdown.value.handleClose()
 }
 
 const router = useRouter()
@@ -298,6 +331,13 @@ const fullScreenHanlder = function () {
 }
 .tabs .el-tag:not(:first-child) {
   margin-left: 10px;
+}
+.setting_bar {
+  padding-top: 20px;
+  float: right;
+}
+.setting_bar .el-dropdown {
+  margin-left: 12px;
 }
 </style>
 <style lang="scss">

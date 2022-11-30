@@ -2,7 +2,11 @@
   <el-card class="box-card">
     <el-form :inline="true" class="demo-form-inline">
       <el-form-item label="Approved by">
-        <el-input placeholder="Approved by" />
+        <el-date-picker
+          v-model="value1"
+          type="datetime"
+          placeholder="Select date and time"
+        />
       </el-form-item>
       <el-form-item label="Activity zone">
         <el-select placeholder="Activity zone">
@@ -29,6 +33,10 @@
   </el-card>
 </template>
 <script lang="ts" setup>
+import { ref } from 'vue'
+
+const value1 = ref('')
+
 const tableData = [
   {
     date: '2016-05-03',

@@ -5,6 +5,8 @@ export default {
     large: '最大',
     default: '默认',
     small: '最小',
-    card3: 'New Shoppings',
+    userInfo: '个人信息',
+    logout: '登出',
+    login: '登录',
   },
 }
