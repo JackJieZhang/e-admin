@@ -1,3 +1,4 @@
 export * from './message'
-export * from './i18n'
-export * from './sizeStore'
+export * from './I18n'
+export * from './SizeStore'
+export * from './HeaderMenuToLeftMenu'

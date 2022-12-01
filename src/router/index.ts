@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import { websiteTitle } from '@/config'
+import i18n from '@/i18n'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -12,6 +13,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '/table',
+        meta: { title: '演示表格' },
         component: () => import('@/views/Table.vue'),
         children: [],
       },
@@ -25,11 +27,13 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     component: () => import('@/views/Login.vue'),
+    meta: { title: 'login.login' },
     children: [],
   },
   {
     path: '/404',
     component: () => import('@/views/404.vue'),
+
     children: [],
   },
 ]
@@ -40,8 +44,10 @@ const router = createRouter({
 })
 
 router.afterEach((to) => {
-  const { title } = to.meta
-  document.title = title ? `${title} - ${websiteTitle}` : websiteTitle
+  const title = to.meta.title
+  document.title = title
+    ? i18n.global.t(title) + ` - ${websiteTitle}`
+    : websiteTitle
 })
 
 export default router

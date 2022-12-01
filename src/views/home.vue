@@ -4,15 +4,7 @@
       <el-space wrap style="float: left">
         <div class="logo"></div>
         <div>
-          <el-menu class="top-menu" mode="horizontal" :ellipsis="false">
-            <el-menu-item index="1">Processing Center</el-menu-item>
-            <el-sub-menu index="2">
-              <template #title>Workspace</template>
-              <el-menu-item index="2-1">item one</el-menu-item>
-              <el-menu-item index="2-2">item two</el-menu-item>
-              <el-menu-item index="2-3">item three</el-menu-item>
-            </el-sub-menu>
-          </el-menu>
+          <header-menu :menus="menus" @get-child-menus="setChildMenus" />
         </div>
       </el-space>
       <div style="padding: 10px; float: right; cursor: pointer">
@@ -39,13 +31,13 @@
         <el-button
           style="font-size: 20px"
           link
-          :icon="fullscreen ? Crop : FullScreen"
+          :icon="fullscreen ? 'Crop' : 'FullScreen'"
           @click="fullScreenHanlder()"
         ></el-button>
         <el-button
           style="font-size: 20px"
           link
-          :icon="isDark ? Moon : Sunny"
+          :icon="isDark ? 'Moon' : 'Sunny'"
           @click="toggleDark()"
         ></el-button>
         <el-dropdown
@@ -75,24 +67,7 @@
             </el-dropdown-menu>
           </template>
         </el-dropdown>
-        <el-dropdown
-          :hide-on-click="false"
-          trigger="click"
-          ref="languageDropdown"
-          @command="changeLang"
-        >
-          <span class="el-dropdown-link">
-            <el-button link
-              ><i class="el-icon-ali-language" style="font-size: 20px"
-            /></el-button>
-          </span>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item command="cn">中文</el-dropdown-item>
-              <el-dropdown-item command="en">English</el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
+        <locale-select />
       </div>
     </el-header>
     <el-container>
@@ -100,66 +75,11 @@
         width="200px"
         style="border-right: solid 1px var(--el-menu-border-color)"
       >
-        <el-menu class="left-meun">
-          <el-sub-menu index="1">
-            <template #title>
-              <el-icon><location /></el-icon>
-              <span>Navigator One</span>
-            </template>
-            <el-menu-item-group title="Group One">
-              <el-menu-item index="1-1">item one</el-menu-item>
-              <el-menu-item index="1-2">item two</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="Group Two">
-              <el-menu-item index="1-3">item three</el-menu-item>
-            </el-menu-item-group>
-            <el-sub-menu index="1-4">
-              <template #title>item four</template>
-              <el-menu-item index="1-4-1">item one</el-menu-item>
-            </el-sub-menu>
-          </el-sub-menu>
-          <el-menu-item index="2">
-            <el-icon><icon-menu /></el-icon>
-            <span>Navigator Two</span>
-          </el-menu-item>
-          <el-menu-item index="3" disabled>
-            <el-icon><document /></el-icon>
-            <span>Navigator Three</span>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <el-icon><setting /></el-icon>
-            <span>Navigator Four</span>
-          </el-menu-item>
-        </el-menu>
+        <LeftMenu :menus="childMenus" @add-tab="addTab" />
       </el-aside>
       <el-container class="main">
         <el-main style="padding: 0px">
-          <div class="tabs">
-            <el-tag
-              v-for="tag in tags"
-              :key="tag.name"
-              class="mx-1"
-              :closable="tag.closable"
-              :type="tag.type"
-              @click="onChangeTag(tag.name)"
-              @close="onCloseTag(tag.name)"
-            >
-              {{ tag.name }}
-            </el-tag>
-            <div style="float: right; padding: 5px">
-              <el-dropdown :hide-on-click="false">
-                <span class="el-dropdown-link">
-                  <el-icon class="el-icon--right"><arrow-down /></el-icon>
-                </span>
-                <template #dropdown>
-                  <el-dropdown-menu>
-                    <el-dropdown-item>关闭其他</el-dropdown-item>
-                    <el-dropdown-item>关闭全部</el-dropdown-item>
-                  </el-dropdown-menu>
-                </template>
-              </el-dropdown>
-            </div>
-          </div>
+          <open-tabs :tags="tags" />
           <div class="main-content" style="padding: var(--el-main-padding)">
             <router-view />
           </div>
@@ -170,29 +90,13 @@
   </el-container>
 </template>
 <script lang="ts" setup>
-import { ArrowDown } from '@element-plus/icons-vue'
 import { useDark, useToggle } from '@vueuse/core'
-import { ref, watch, toRef } from 'vue'
-import { i18nStore, sizeStore } from '@/stores'
-import { useI18n } from 'vue-i18n'
+import { ref } from 'vue'
+import { sizeStore } from '@/stores'
 import { useRouter } from 'vue-router'
-import { Sunny, Moon, FullScreen, Crop } from '@element-plus/icons-vue'
 import { removeUserToken } from '@/utils/LocalStore'
-
-const { locale } = useI18n()
-const lanStore = i18nStore()
-const locale1 = toRef(lanStore, 'lan')
-watch(locale1, (): void => {
-  if (locale1.value != undefined) {
-    lanStore.seti18n(locale1.value)
-    locale.value = locale1.value
-  }
-})
-const languageDropdown = ref()
-const changeLang = function (command: string) {
-  locale1.value = command
-  languageDropdown.value.handleClose()
-}
+import LocaleSelect from '@/components/LocaleSelect.vue'
+import LeftMenu from '@/components/LeftMenu.vue'
 
 const sizeDropdown = ref()
 const size = sizeStore()
@@ -212,56 +116,12 @@ const userOptCommand = function (command: string) {
       router.push({ path: '/user-info' })
       break
   }
-
   userOptDropdown.value.handleClose()
 }
 
 const router = useRouter()
-const tags = ref([
-  { name: 'Tag 1', type: '', closable: false },
-  { name: 'Tag 2', type: '', closable: true },
-  { name: 'Tag 3', type: '', closable: true },
-  { name: 'Tag 4', type: '', closable: true },
-  { name: 'Tag 5', type: '', closable: true },
-])
-const selectTag = ref('Tag 1')
-function selectTagFnc() {
-  tags.value.forEach(function (item) {
-    item.type = ''
-    if (item.name === selectTag.value) {
-      item.type = 'success'
-    }
-  })
-}
-selectTagFnc()
-const onChangeTag = function (name: string) {
-  selectTag.value = name
-}
-const onCloseTag = function (name: string) {
-  let removeIdex: number[] = []
-  let isSelect = false
-  tags.value.forEach(function (item, idex) {
-    if (item.name === name) {
-      if (item.name === selectTag.value) {
-        isSelect = true
-      }
-      removeIdex.push(idex)
-    }
-  })
-  removeIdex.reverse()
-  removeIdex.forEach(function (itm) {
-    tags.value.splice(itm, 1)
-  })
-  if (isSelect) {
-    selectTag.value = tags.value[tags.value.length - 1].name
-  }
-}
+const tags = ref([])
 
-watch(selectTag, selectTagFnc)
-tags.value.push({ name: 'Tag 6', type: '', closable: true })
-router.push({
-  path: '/table',
-})
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
 
@@ -294,6 +154,43 @@ const fullScreenHanlder = function () {
     fullscreen.value = !fullscreen.value
   }
 }
+
+const menus = ref([
+  {
+    name: '测试父级',
+    key: 'test_parent',
+    path: '',
+    icon: 'location',
+    child: [{ name: '测试', key: 'test', path: '/table', icon: 'location' }],
+  },
+  {
+    name: '测试父级1',
+    key: 'test_parent1',
+    path: '',
+    icon: 'location',
+    child: [
+      {
+        name: '测试1',
+        key: 'test1',
+        icon: 'location',
+        child: [
+          { name: '测试3', key: 'test3', path: '/table', icon: 'location' },
+        ],
+      },
+    ],
+  },
+])
+const childMenus = ref([])
+function setChildMenus(chMs: []) {
+  childMenus.value = chMs
+}
+
+function addTab(ob: any) {
+  tags.value.push({
+    name: ob.name,
+    closable: true,
+  })
+}
 </script>
 <style lang="less" scoped>
 .header {
@@ -309,9 +206,7 @@ const fullScreenHanlder = function () {
 .top-menu {
   border-bottom: none;
 }
-.left-meun {
-  border-right: none;
-}
+
 .main {
   max-height: 100vh;
   height: 100vh;
@@ -319,18 +214,6 @@ const fullScreenHanlder = function () {
 }
 .main-content {
   padding: var(--el-main-padding);
-}
-.tabs {
-  padding: 5px;
-  border-bottom: solid 1px var(--el-menu-border-color);
-  background-color: var(--el-bg-color);
-  display: block;
-}
-.tabs .el-tag {
-  cursor: pointer;
-}
-.tabs .el-tag:not(:first-child) {
-  margin-left: 10px;
 }
 .setting_bar {
   padding-top: 20px;
