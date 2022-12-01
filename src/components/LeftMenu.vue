@@ -32,6 +32,7 @@ const emits = defineEmits(['add-tab'])
 
 function goTo(ob: any) {
   router.push({ path: ob.path })
+  console.log(ob)
   emits('add-tab', ob)
 }
 </script>

@@ -30,21 +30,23 @@
 import { ref, watch } from 'vue'
 
 const props = defineProps(['tags'])
-const selectTag = ref('Tag 1')
+const selectTag = ref()
 const tags = props.tags
 // eslint-disable-next-line no-undef
 function selectTagFnc() {
-  tags.forEach(function (item: string) {
-    item.type = ''
-    if (item.name === selectTag.value) {
-      item.type = 'success'
-    }
-  })
+  if (tags) {
+    tags.forEach(function (item: string) {
+      item.type = ''
+      if (item.name === selectTag.value) {
+        item.type = 'success'
+      }
+    })
+  }
 }
 selectTagFnc()
 watch(selectTag, selectTagFnc)
-const onChangeTag = function (name: string) {
-  selectTag.value = name
+const onChangeTag = function (ob: any) {
+  selectTag.value = ob.name
 }
 const onCloseTag = function (name: string) {
   let removeIdex: number[] = []
