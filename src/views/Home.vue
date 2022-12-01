@@ -97,6 +97,7 @@ import { useRouter } from 'vue-router'
 import { removeUserToken } from '@/utils/LocalStore'
 import LocaleSelect from '@/components/LocaleSelect.vue'
 import LeftMenu from '@/components/LeftMenu.vue'
+import { tr } from 'element-plus/es/locale'
 
 const sizeDropdown = ref()
 const size = sizeStore()
@@ -160,7 +161,9 @@ const menus = ref([
     key: 'test_parent',
     path: '',
     icon: 'location',
-    child: [{ name: '测试', key: 'test', path: '/table', icon: 'location' }],
+    child: [
+      { name: '测试', key: 'test', path: '/user-info', icon: 'location' },
+    ],
   },
   {
     name: '测试父级1',
@@ -183,16 +186,15 @@ const childMenus = ref([])
 function setChildMenus(chMs: []) {
   childMenus.value = chMs
 }
-const tags = ref()
+const tags = ref<any>([])
 function addTab(ob: any) {
-  let exitsFlag = true
-  console.log(tags.value)
-  if (tags.value) {
+  let exitsFlag = false
+  if (tags.value.length > 0) {
     tags.value.forEach((itm: any) => {
       itm.type = ''
       if (itm.name === ob.name) {
         itm.type = 'success'
-        exitsFlag = false
+        exitsFlag = true
       }
     })
   } else {
@@ -202,6 +204,7 @@ function addTab(ob: any) {
   if (!exitsFlag) {
     tags.value.push({
       name: ob.name,
+      path: ob.path,
       type: 'success',
       closable: true,
     })

@@ -27,31 +27,31 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
+import router from '@/router'
+import { ref, toRef } from 'vue'
 
 const props = defineProps(['tags'])
-const selectTag = ref()
-const tags = props.tags
+const selectTag = ref<string>('')
+const tags = toRef(props, 'tags')
 // eslint-disable-next-line no-undef
-function selectTagFnc() {
-  if (tags) {
-    tags.forEach(function (item: string) {
-      item.type = ''
-      if (item.name === selectTag.value) {
-        item.type = 'success'
-      }
-    })
-  }
+function selectTagFnc(value: string) {
+  tags.value.forEach(function (item: any) {
+    item.type = ''
+    if (item.name === value) {
+      selectTag.value = value
+      item.type = 'success'
+    }
+  })
 }
-selectTagFnc()
-watch(selectTag, selectTagFnc)
+
 const onChangeTag = function (ob: any) {
-  selectTag.value = ob.name
+  selectTagFnc(ob.name)
+  router.push({ path: ob.path })
 }
 const onCloseTag = function (name: string) {
   let removeIdex: number[] = []
   let isSelect = false
-  tags.forEach(function (item: any, idex: number) {
+  tags.value.forEach(function (item: any, idex: number) {
     if (item.name === name) {
       if (item.name === selectTag.value) {
         isSelect = true
@@ -61,10 +61,11 @@ const onCloseTag = function (name: string) {
   })
   removeIdex.reverse()
   removeIdex.forEach(function (itm) {
-    tags.splice(itm, 1)
+    tags.value.splice(itm, 1)
   })
   if (isSelect) {
-    selectTag.value = tags[tags.length - 1].name
+    selectTag.value = tags.value[tags.value.length - 1].type
+    tags.value[tags.value.length - 1].type = 'success'
   }
 }
 </script>
