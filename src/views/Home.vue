@@ -97,7 +97,6 @@ import { useRouter } from 'vue-router'
 import { removeUserToken } from '@/utils/LocalStore'
 import LocaleSelect from '@/components/LocaleSelect.vue'
 import LeftMenu from '@/components/LeftMenu.vue'
-import { tr } from 'element-plus/es/locale'
 
 const sizeDropdown = ref()
 const size = sizeStore()
@@ -176,7 +175,12 @@ const menus = ref([
         key: 'test1',
         icon: 'location',
         child: [
-          { name: '测试3', key: 'test3', path: '/table', icon: 'location' },
+          {
+            name: '测试3',
+            key: 'test3',
+            path: '/table',
+            icon: 'location',
+          },
         ],
       },
     ],

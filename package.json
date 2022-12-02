@@ -17,7 +17,9 @@
   },
   "dependencies": {
     "@intlify/vite-plugin-vue-i18n": "^6.0.3",
+    "axios": "^1.2.0",
     "element-plus": "^2.2.25",
+    "nprogress": "^0.2.0",
     "pinia": "^2.0.14",
     "vue": "^3.2.37",
     "vue-i18n": "^9.2.2",
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "@types/node": "^18.0.1",
+    "@types/nprogress": "^0.2.0",
     "@typescript-eslint/eslint-plugin": "^5.30.4",
     "@typescript-eslint/parser": "^5.30.4",
     "@vitejs/plugin-vue": "^2.3.3",

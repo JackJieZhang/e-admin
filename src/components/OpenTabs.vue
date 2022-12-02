@@ -7,7 +7,7 @@
       :closable="tag.closable"
       :type="tag.type"
       @click="onChangeTag(tag)"
-      @close="onCloseTag(tag.name)"
+      @close="onCloseTag(tag)"
     >
       {{ tag.name }}
     </el-tag>
@@ -48,7 +48,8 @@ const onChangeTag = function (ob: any) {
   selectTagFnc(ob.name)
   router.push({ path: ob.path })
 }
-const onCloseTag = function (name: string) {
+const onCloseTag = function (ob: any) {
+  const name = ob.name
   let removeIdex: number[] = []
   let isSelect = false
   tags.value.forEach(function (item: any, idex: number) {
@@ -66,6 +67,7 @@ const onCloseTag = function (name: string) {
   if (isSelect) {
     selectTag.value = tags.value[tags.value.length - 1].type
     tags.value[tags.value.length - 1].type = 'success'
+    router.push({ path: tags.value[tags.value.length - 1].path })
   }
 }
 </script>

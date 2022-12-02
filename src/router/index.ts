@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import { websiteTitle } from '@/config'
 import i18n from '@/i18n'
+import { showFullLoading, hideFullLoading } from '@/utils'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -13,7 +14,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '/table',
-        meta: { title: '演示表格' },
+        meta: { title: '演示表格', btns: { edit: 'edit' } },
         component: () => import('@/views/Table.vue'),
         children: [],
       },
@@ -42,12 +43,16 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 })
-
+router.beforeEach((to, from, next) => {
+  showFullLoading()
+  next()
+})
 router.afterEach((to) => {
-  const title = to.meta.title
+  const title = to.meta.title as string
   document.title = title
     ? i18n.global.t(title) + ` - ${websiteTitle}`
     : websiteTitle
+  hideFullLoading()
 })
 
 export default router
