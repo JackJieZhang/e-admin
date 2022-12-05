@@ -74,7 +74,7 @@
     <el-pagination
       style="margin-top: 20px"
       :page-sizes="[100, 200, 300, 400]"
-      background="background"
+      background
       :small="sizeSt.size === 'small'"
       layout="total, sizes, prev, pager, next, jumper"
       :total="400"

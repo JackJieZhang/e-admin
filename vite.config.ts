@@ -106,7 +106,8 @@ export default defineConfig({
   plugins: [
     vue(),
     vueI18n({
-      include: resolve('src/i18n/index.ts'),
+      compositionOnly: true,
+      include: resolve('src/i18n/locale/*'),
     }),
     /**
      * 自动导入组件，不用每次都 import

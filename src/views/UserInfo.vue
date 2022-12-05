@@ -13,7 +13,7 @@
   </el-card>
 </template>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .card-header {
   display: flex;
   justify-content: space-between;

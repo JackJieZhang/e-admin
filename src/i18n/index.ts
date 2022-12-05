@@ -2,28 +2,18 @@
 
 import { createI18n } from 'vue-i18n'
 
-import ZH from '@/i18n/zh'
-import EN from '@/i18n/en'
+import messages from '@intlify/vite-plugin-vue-i18n/messages'
 import { getI18n } from '@/utils/LocalStore'
 import { websiteTitle } from '@/config'
 import { i18nStore } from '@/stores'
 import zhCN from 'element-plus/es/locale/lang/zh-cn'
 import enUS from 'element-plus/es/locale/lang/en'
 
-const message = {
-  zhCn: {
-    ...ZH,
-  },
-  en: {
-    ...EN,
-  },
-}
-
 const i18n = createI18n({
   legacy: false,
   globalInjection: true,
   locale: getI18n() || 'zhCn',
-  messages: message,
+  messages: messages,
 })
 
 export default i18n

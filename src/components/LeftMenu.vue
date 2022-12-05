@@ -35,7 +35,7 @@ function goTo(ob: any) {
   emits('add-tab', ob)
 }
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .left-meun {
   border-right: none;
 }

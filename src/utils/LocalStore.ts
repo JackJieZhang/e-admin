@@ -18,8 +18,8 @@ export const removeUserToken = (): void => {
   sessionStorage.removeItem('auth')
 }
 
-export const getSize = (): string | null => {
-  return localStorage.getItem('size')
+export const getSize = (): string => {
+  return localStorage.getItem('size') as string
 }
 
 export const setSize = (size: string): void => {

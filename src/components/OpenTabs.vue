@@ -71,7 +71,7 @@ const onCloseTag = function (ob: any) {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .tabs {
   padding: 5px;
   border-bottom: solid 1px var(--el-menu-border-color);

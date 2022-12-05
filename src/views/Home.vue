@@ -129,25 +129,11 @@ const fullscreen = ref(false)
 const fullScreenHanlder = function () {
   {
     if (fullscreen.value) {
-      if (document.exitFullscreen()) {
-        document.exitFullscreen()
-      } else if (document.webkitCancelFullScreen) {
-        document.webkitCancelFullScreen()
-      } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen
-      } else if (document.msExitFullScreen) {
-        document.msExitFullScreen
-      }
+      document.exitFullscreen()
     } else {
       let element = document.documentElement
       if (element.requestFullscreen) {
         element.requestFullscreen()
-      } else if (element.webkitRequestFullScreen) {
-        element.webkitRequestFullScreen()
-      } else if (element.mozRequestFullScreen) {
-        element.mozRequestFullScreen()
-      } else if (element.msRequestFullScreen) {
-        element.msRequestFullScreen()
       }
     }
     fullscreen.value = !fullscreen.value
@@ -215,7 +201,7 @@ function addTab(ob: any) {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .header {
   padding: 0;
   border-bottom: solid 1px var(--el-menu-border-color);

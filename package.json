@@ -6,17 +6,13 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "vite --host",
-    "build": "vue-tsc --noEmit && vite build",
-    "build:vite": "vite build",
+    "dev": "vite --host --mode dev",
+    "build:test": "vite build --mode test",
+    "build:prod": "vite build --mode prod",
     "preview": "vite preview",
-    "lint": "eslint src --ext .js,.ts",
-    "format": "prettier --write src",
-    "backup": "git add . && git commit -m \"chore: backup\" && git push",
-    "up": "npx npm-check-updates -u"
+    "format": "prettier --write src"
   },
   "dependencies": {
-    "@intlify/vite-plugin-vue-i18n": "^6.0.3",
     "axios": "^1.2.0",
     "element-plus": "^2.2.25",
     "nprogress": "^0.2.0",
@@ -26,6 +22,7 @@
     "vue-router": "^4.0.16"
   },
   "devDependencies": {
+    "@intlify/vite-plugin-vue-i18n": "^6.0.3",
     "@types/node": "^18.0.1",
     "@types/nprogress": "^0.2.0",
     "@typescript-eslint/eslint-plugin": "^5.30.4",

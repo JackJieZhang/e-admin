@@ -70,7 +70,7 @@ const login = (): void => {
   })
 }
 </script>
-<style lang="less" scoped>
+<style lang="scss" scoped>
 .login {
   -webkit-transform: translate(40%, 120%);
   transform: translate(40%, 120%);

@@ -9,9 +9,9 @@ import 'element-plus/dist/index.css'
 import 'nprogress/nprogress.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
-import i18n from './i18n'
-import { hasPermission } from './directives/BtnPrm'
-import { btnHideFlag } from './config'
+import i18n from '@/i18n'
+import { hasPermission } from '@/directives/BtnPrm'
+import { btnHideFlag } from '@/config'
 
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {

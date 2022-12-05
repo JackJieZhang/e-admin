@@ -1,12 +1,13 @@
 @font-face {
-  font-family: "iconfont"; /* Project id 3800318 */
+  font-family: 'iconfont'; /* Project id 3800318 */
   src: url('iconfont.woff2?t=1669784890252') format('woff2'),
-       url('iconfont.woff?t=1669784890252') format('woff'),
-       url('iconfont.ttf?t=1669784890252') format('truetype');
+    url('iconfont.woff?t=1669784890252') format('woff'),
+    url('iconfont.ttf?t=1669784890252') format('truetype');
 }
 
-[class*="el-icon-ali-"], [class^="el-icon-ali-"] {
-  font-family: "iconfont" !important;
+[class*='el-icon-ali-'],
+[class^='el-icon-ali-'] {
+  font-family: 'iconfont' !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
@@ -14,10 +15,9 @@
 }
 
 .el-icon-ali-diaozhengdaxiaoresize5:before {
-  content: "\e720";
+  content: '\e720';
 }
 
 .el-icon-ali-language:before {
-  content: "\e9cf";
+  content: '\e9cf';
 }
-
