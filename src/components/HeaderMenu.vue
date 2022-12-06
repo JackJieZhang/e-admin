@@ -18,7 +18,6 @@
 import { ref } from 'vue'
 const prop = defineProps(['menus'])
 const emit = defineEmits(['get-child-menus'])
-console.log(prop.menus)
 const active = ref(prop.menus[0].key)
 showChild(prop.menus[0].child)
 function showChild(childs: []) {

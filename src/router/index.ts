@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import { websiteTitle } from '@/config'
-import i18n, { changeTitleLocale } from '@/i18n'
 import { showFullLoading, hideFullLoading } from '@/utils'
+import { changeTitleLocale } from '@/i18n'
 
 const routes: Array<RouteRecordRaw> = [
   {

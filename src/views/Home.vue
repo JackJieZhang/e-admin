@@ -81,7 +81,11 @@
         <el-main style="padding: 0px">
           <open-tabs :tags="tags" />
           <div class="main-content" style="padding: var(--el-main-padding)">
-            <router-view />
+            <router-view v-slot="{ Component, route }">
+              <transition name="slide-left">
+                <component :is="Component" :key="route.path" />
+              </transition>
+            </router-view>
           </div>
         </el-main>
         <el-footer>Footer</el-footer>
@@ -91,12 +95,11 @@
 </template>
 <script lang="ts" setup>
 import { useDark, useToggle } from '@vueuse/core'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { sizeStore } from '@/stores'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { removeUserToken } from '@/utils/LocalStore'
 import LocaleSelect from '@/components/LocaleSelect.vue'
-import LeftMenu from '@/components/LeftMenu.vue'
 
 const sizeDropdown = ref()
 const size = sizeStore()
@@ -120,7 +123,10 @@ const userOptCommand = function (command: string) {
 }
 
 const router = useRouter()
-
+const route = useRoute()
+watch(route, (value) => {
+  console.log(value)
+})
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
 
@@ -230,6 +236,16 @@ function addTab(ob: any) {
 }
 .setting_bar .el-dropdown {
   margin-left: 12px;
+}
+
+.slide-left-leave-active {
+  will-change: transform;
+  transition: all 0ms;
+  position: absolute;
+}
+.slide-left-enter-active {
+  opacity: 0.5;
+  transform: translate3d(-100%, 100%, 100%);
 }
 </style>
 <style lang="scss">

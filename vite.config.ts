@@ -4,8 +4,11 @@ import vue from '@vitejs/plugin-vue'
 import components from 'unplugin-vue-components/vite'
 import banner from 'vite-plugin-banner'
 import pkg from './package.json'
-import vueI18n from '@intlify/vite-plugin-vue-i18n'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import {
+  createStyleImportPlugin,
+  VxeTableResolve,
+} from 'vite-plugin-style-import'
 const resolve = (dir: string): string => path.resolve(__dirname, dir)
 
 // https://vitejs.dev/config/
@@ -70,6 +73,7 @@ export default defineConfig({
       '@libs': resolve('src/libs'),
       '@cp': resolve('src/components'),
       '@views': resolve('src/views'),
+      'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
     },
   },
 
@@ -105,9 +109,8 @@ export default defineConfig({
 
   plugins: [
     vue(),
-    vueI18n({
-      compositionOnly: true,
-      include: resolve('src/i18n/locale/*'),
+    createStyleImportPlugin({
+      resolves: [VxeTableResolve()],
     }),
     /**
      * 自动导入组件，不用每次都 import

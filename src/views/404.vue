@@ -1,8 +1,10 @@
 <template>
-  <h2>404</h2>
+  <input v-model="message" />
+  <Child />
 </template>
-<style scoped>
-h2 {
-  color: blue;
-}
-</style>
+<script lang="ts" setup>
+// import { provide } from 'vue'
+
+const message = 'hello'
+// provide('message', '张三啊')
+</script>
