@@ -44,11 +44,12 @@
 import { ref } from 'vue'
 import { sizeStore as sizeStores } from '@/stores'
 import { vxeTableSizeConvert } from '@/config'
+import { VxeGridProps } from 'vxe-table'
 
 const value1 = ref('')
 const sizeStore = sizeStores()
 
-const gridOptions = ref({
+const gridOptions = ref<VxeGridProps>({
   border: true,
   columns: [
     { type: 'seq', width: 50 },
